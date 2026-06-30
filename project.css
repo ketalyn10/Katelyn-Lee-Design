@@ -675,7 +675,7 @@ img {
 
 .about-text {
   margin-top: 0;
-  max-width: 720px;
+  max-width: 750px;
 }
 
 .about-text h1 {
@@ -733,7 +733,7 @@ img {
 }
 
 .connect {
-  margin-top: 56px;
+  margin-top: 45px;
   color: #9f9f9f;
   opacity: 0.8;
 }
