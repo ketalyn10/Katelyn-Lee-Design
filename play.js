@@ -1,4 +1,49 @@
 const playProjects = {
+  KLIO: {
+    title: "Activity Log",
+    year: "2026",
+    description:
+      "Various data visualization posters rendered via p5.js for Katelyn Lee is Online.",
+
+    media: [
+      {
+        type: "image",
+        src: "../assets/activitylog/poster_final.png",
+        alt: "Activity log"
+      },
+      {
+        type: "image",
+        src: "../assets/activitylog/COVERS.png",
+        alt: "Cover"
+      },
+      {
+        type: "image",
+        src: "../assets/activitylog/example.png",
+        alt: "Cover"
+      },
+      {
+        type: "image",
+        src: "../assets/activitylog/example_2.png",
+        alt: "Cover"
+      },
+      {
+        type: "image",
+        src: "../assets/activitylog/example_3.png",
+        alt: "Cover"
+      },
+      {
+        type: "image",
+        src: "../assets/activitylog/example_4.png",
+        alt: "Cover"
+      },
+      {
+        type: "image",
+        src: "../assets/activitylog/example_5.png",
+        alt: "Cover"
+      }
+    ]
+  },
+  
   riso: {
     title: "Riso Animation + Flipbooks",
     year: "2025",
@@ -177,7 +222,7 @@ function hideCarouselCursor() {
   carouselCursor.classList.remove("is-visible");
 }
 
-let activeProjectKey = "riso";
+let activeProjectKey = "KLIO";
 let activeMediaIndex = 0;
 
 function createMediaElement(media) {
@@ -354,5 +399,5 @@ const requestedProject = window.location.hash.slice(1);
 if (playProjects[requestedProject]) {
   loadProject(requestedProject);
 } else {
-  loadProject("riso");
+  loadProject("KLIO");
 }

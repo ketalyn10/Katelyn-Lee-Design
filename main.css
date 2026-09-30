@@ -307,7 +307,7 @@ img {
 }
 
 .project-card[data-project="katelyn-is-online"]
-.carousel-image[src*="vol3scans.gif"] {
+.carousel-image[src*="vol3scans"] {
   transform: scale(1.2);
   object-fit: contain;
 }

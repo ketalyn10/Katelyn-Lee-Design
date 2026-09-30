@@ -155,8 +155,8 @@ img {
 }
 
 .gems-page .project-hero video {
-  width: 100%;
-  height: 55vh;
+  width: 50vw;
+  height: 50vh;
   object-fit: cover;
   margin: 0 auto;
 }
@@ -252,6 +252,122 @@ img {
   pointer-events: none;
 }
 
+/* mini carousel (left side of a two-up) */
+.mini-carousel {
+  display: grid;
+  grid-template-columns: 32px minmax(0, 1fr) 32px;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  height: 100%;
+  grid-template-rows: 100%;
+}
+
+.mini-carousel-track {
+  height: 100%;
+  min-width: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.mini-carousel-track > * {
+  display: none;
+  max-width: 100%;
+}
+
+.mini-carousel-track > .is-active {
+  display: block;
+}
+
+.mini-carousel-btn {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #f2f2f2;
+  cursor: pointer;
+  transition: color 0.15s ease;
+}
+
+.mini-carousel-btn svg {
+  display: block;
+  width: 24px;
+  height: 48px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+}
+
+.mini-carousel-btn:hover,
+.mini-carousel-btn:focus-visible {
+  color: #4da3ff;
+}
+
+.project-gallery.two-up .mini-carousel-track img {
+  width: auto;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+/* pair carousel (two posters per slide) */
+.pair-carousel .mini-carousel {
+  height: 600px; /* poster height, adjust to taste */
+}
+
+.mini-carousel-track > .mini-carousel-pair.is-active {
+  display: flex;
+}
+
+.mini-carousel-pair {
+  height: 100%;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+}
+
+.pair-carousel .mini-carousel-pair img {
+  flex: 0 1 auto;
+  min-width: 0;
+  width: auto;
+  height: 100%;
+  max-width: calc(50% - 10px);
+  object-fit: contain;
+}
+
+/* full-width carousel (same size as project-gallery single) */
+.single-carousel .mini-carousel {
+  position: relative;
+  display: block;
+  height: auto;
+  width: 85%;
+  margin: 0 auto;
+}
+
+.single-carousel .mini-carousel-track {
+  display: block;
+  height: auto;
+}
+
+.single-carousel .mini-carousel-track img {
+  width: 100%;
+  height: auto;
+}
+
+.single-carousel .mini-carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  padding: 0 16px;
+  filter: drop-shadow(0 0 3px rgba(0, 0, 0, 0.6));
+}
+
+.single-carousel .mini-carousel-btn.prev { left: 0; }
+.single-carousel .mini-carousel-btn.next { right: 0; }
+
 .project-gallery.two-up img.styleguide {
   width: 105%;
   height: 100%;
@@ -265,6 +381,19 @@ img {
   height: 100%;
   object-fit: cover;
   display: block;
+}
+
+.project-gallery.two-up.promo figure {
+  height: 740px; /* the size you actually want them */
+  display: flex;
+  justify-content: center;
+}
+
+.project-gallery.two-up.promo img,
+.project-gallery.two-up.promo video {
+  width: auto;
+  height: 100%;
+  object-fit: contain;
 }
 
 .project-intro {
@@ -1374,6 +1503,8 @@ the viewing area.
     font-size:1rem;
   }
 
+  .project-gallery.two-up.promo figure { height: 420px; }
+
   .site-title{
     font-size:1rem;
   }
@@ -1619,6 +1750,30 @@ the viewing area.
     font-size: 0.9rem;
   }
 
+  .project-gallery.two-up.promo figure { height: auto; }
+.project-gallery.two-up.promo img,
+.project-gallery.two-up.promo video { width: 100%; height: auto; }
+
+.pair-carousel .mini-carousel {
+  height: auto;
+  grid-template-rows: auto;
+  gap: 8px;
+}
+
+.pair-carousel .mini-carousel-pair {
+  height: auto;
+  gap: 10px;
+}
+
+.pair-carousel .mini-carousel-pair img {
+  height: auto;
+  max-width: calc(50% - 5px);
+}
+
+.single-carousel .mini-carousel {
+  width: 100%;
+}
+
   .top-nav {
     flex-wrap: wrap;
     justify-content: flex-end;
@@ -1677,6 +1832,7 @@ the viewing area.
   .play-carousel-footer {
     font-size: 0.84rem;
   }
+
 
   .play-gallery {
     grid-template-columns: 1fr;
