@@ -1,0 +1,565 @@
+/* =========================================================
+   PLAY PAGE — infinite grid
+   Load after project.css
+   ========================================================= */
+
+:root {
+  --pg-blue: #4da3ff;
+  --pg-label-bg: #5b9cf5;
+  --pg-pink: #ea39b8;
+  --pg-divider: #cfcfcf;
+  --pg-panel-w: 475px; /* same as the main page sidebar */
+  --pg-dim: rgba(0, 0, 0, 0.55);
+}
+
+.pg-body {
+  margin: 0;
+  background: #000;
+  color: #f2f2f2;
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+
+/* ---------- header tabs ---------- */
+
+.pg-header {
+  position: fixed;
+  inset: 0 0 auto 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  z-index: 60;
+  pointer-events: none;
+}
+/* the header ignores clicks so the grid can be dragged underneath it;
+   the title and nav switch clicks back on.
+   Positions and type match .site-title and .top-nav on the Work page. */
+.pg-tab {
+  pointer-events: auto;
+  position: fixed;
+  top: 20px;
+  font-size: 1.15rem;
+  line-height: 1;
+}
+
+.pg-tab-left {
+  left: 40px;
+  font-weight: 400;
+  transition: color 0.15s ease;
+}
+
+.pg-tab-left:hover,
+.pg-tab-left:focus-visible {
+  color: var(--pg-blue);
+}
+
+.pg-tab-right {
+  right: 40px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0;
+}
+
+.pg-tab-right a {
+  font-size: 1.15rem;
+}
+
+/* ---------- grid ---------- */
+
+.pg-viewport {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  cursor: grab;
+}
+
+.pg-viewport.is-dragging {
+  cursor: grabbing;
+}
+
+.pg-stage {
+  position: absolute;
+  inset: 0;
+  will-change: transform; /* the whole grid moves as one layer */
+}
+
+.pg-item {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pg-frame {
+  position: relative;
+  margin: 0;
+  line-height: 0;
+  cursor: pointer;
+}
+
+.pg-item.is-soon .pg-frame {
+  cursor: default;
+}
+
+.pg-viewport.is-dragging .pg-frame {
+  cursor: grabbing;
+}
+
+.pg-item .pg-media {
+  display: block;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+/* fade the grid in once every asset has been measured */
+.pg-stage {
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.pg-viewport.is-ready .pg-stage {
+  opacity: 1;
+}
+
+/* coming soon tile */
+.pg-soon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--pg-pink);
+  color: #fff;
+  font-family: "Chivo", sans-serif;
+  font-weight: 400;
+  line-height: 1;
+}
+
+/* hover label */
+.pg-label {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 7px 12px 8px;
+  background: var(--pg-label-bg);
+  color: #fff;
+  font-size: 1.05rem;
+  line-height: 1;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.12s ease;
+  z-index: 2;
+}
+
+@media (hover: hover) {
+  .pg-frame:hover .pg-label {
+    opacity: 1;
+  }
+
+  .pg-viewport.is-dragging .pg-label {
+    opacity: 0 !important;
+  }
+}
+
+/* ---------- overlay ---------- */
+
+.pg-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  background: var(--pg-dim);
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+
+.pg-overlay.is-visible {
+  opacity: 1;
+}
+
+.pg-overlay[hidden] {
+  display: none;
+}
+
+/* info panel (Frame 5) */
+.pg-panel {
+  display: none;
+  position: relative;
+  flex: 0 0 var(--pg-panel-w);
+  height: 100%;
+  padding: 60px 16px 20px 40px; /* lines up with the main page sidebar */
+  background: #000;
+  border-right: 1px solid var(--pg-divider);
+  font-size: 1.15rem;
+  line-height: 1.18;
+}
+
+.pg-overlay.has-info .pg-panel {
+  display: block;
+}
+
+.pg-panel-heading {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 16px;
+  align-items: start;
+}
+
+.pg-panel-year {
+  color: #8f8f8f;
+}
+
+.pg-panel-title {
+  margin: 0;
+  font: inherit;
+  color: #f2f2f2;
+}
+
+.pg-panel-desc {
+  margin-top: 16px;
+  color: #f2f2f2;
+  max-width: 390px;
+  /* background-color: pink; */
+}
+
+.pg-panel-desc a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.pg-panel-desc a:hover,
+.pg-panel-desc a:focus-visible {
+  color: var(--pg-blue);
+}
+
+/* centered media */
+.pg-lightbox {
+  position: relative;
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 72px 88px; /* equal top and bottom so the asset sits dead center */
+}
+
+.pg-lightbox-frame {
+  position: relative;
+  line-height: 0;
+}
+
+.pg-lightbox .pg-media {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: min(60vw, 100%);
+  max-height: calc(100vh - 144px);
+}
+
+.pg-overlay.is-carousel .pg-lightbox .pg-media {
+  max-height: calc(100vh - 184px);
+}
+
+.pg-overlay.has-info .pg-lightbox .pg-media {
+  max-width: calc(100vw - var(--pg-panel-w) - 176px);
+}
+
+/* close buttons */
+.pg-close {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #fff;
+  font-family: "Chivo", sans-serif;
+  font-size: 2rem;
+  font-weight: 400;
+  line-height: 1;
+  cursor: pointer;
+  transition: color 0.15s ease;
+}
+
+.pg-close:hover,
+.pg-close:focus-visible {
+  color: var(--pg-blue);
+}
+
+.pg-close-panel {
+  position: absolute;
+  right: 28px;
+  bottom: 20px;
+}
+
+.pg-close-media {
+  position: absolute;
+  right: -52px;
+  bottom: 0;
+}
+
+/* with the panel, the X lives in the panel instead */
+.pg-overlay.has-info .pg-close-media {
+  display: none;
+}
+
+/* ---------- carousel (projects with more than one asset) ---------- */
+
+.pg-lightbox .pg-media {
+  transition: opacity 0.12s ease;
+}
+
+.pg-lightbox-frame.is-loading .pg-media {
+  opacity: 0;
+}
+
+/* invisible left / right halves */
+.pg-zone {
+  display: none;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 50%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: none;
+  z-index: 2;
+}
+
+.pg-zone-prev {
+  left: 0;
+}
+
+.pg-zone-next {
+  right: 0;
+}
+
+.pg-overlay.is-carousel .pg-zone {
+  display: block;
+}
+
+/* the X and the footer sit above the click halves */
+.pg-close-media,
+.pg-carousel-footer {
+  z-index: 3;
+}
+
+/* counter + arrows under the image */
+.pg-carousel-footer {
+  display: none;
+  position: absolute;
+  top: calc(100% + 12px);
+  left: 0;
+  right: 0;
+  justify-content: space-between;
+  align-items: center;
+  color: #8f8f8f;
+  font-size: 1.02rem;
+  line-height: 1;
+}
+
+.pg-overlay.is-carousel .pg-carousel-footer {
+  display: flex;
+}
+
+.pg-carousel-controls {
+  display: flex;
+  gap: 14px;
+}
+
+.pg-carousel-controls button {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #f2f2f2;
+  font: inherit;
+  font-size: 1.3rem;
+  cursor: pointer;
+  transition: color 0.15s ease;
+}
+
+.pg-carousel-controls button:hover,
+.pg-carousel-controls button:focus-visible {
+  color: var(--pg-blue);
+}
+
+/* pointing-hand cursor that follows the mouse (same as the old Play page) */
+.pg-carousel-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  pointer-events: none;
+  opacity: 0;
+  font-family: Marfa, "Marfa", monospace;
+  font-size: 6.5rem;
+  font-weight: 800;
+  line-height: 1;
+  color: #fff;
+  transform: translate(-50%, -50%);
+  transition: opacity 0.1s ease;
+  text-shadow:
+    0.5px 0 0 #000,
+    -0.5px 0 0 #000,
+    0 0.5px 0 #000,
+    0 -0.5px 0 #000,
+    0.5px 0.5px 0 #000,
+    -0.5px -0.5px 0 #000,
+    0.5px -0.5px 0 #000,
+    -0.5px 0.5px 0 #000;
+}
+
+.pg-carousel-cursor.is-visible {
+  opacity: 1;
+}
+
+/* ---------- laptop (matches main page) ---------- */
+@media (max-width: 1440px) {
+  :root {
+    --pg-panel-w: 380px;
+  }
+}
+
+/* ---------- tablet ---------- */
+@media (max-width: 1024px) {
+  :root {
+    --pg-panel-w: 300px;
+  }
+
+  .pg-panel {
+    padding: 52px 20px 20px 24px;
+    font-size: 1rem;
+  }
+
+    .pg-panel-desc {
+    max-width: 250px;
+  }
+
+  .pg-tab,
+  .pg-tab-right a {
+    font-size: 1rem;
+  }
+
+  .pg-tab-left {
+    left: 24px;
+  }
+
+  .pg-tab-right {
+    right: 24px;
+  }
+
+  .pg-lightbox {
+    padding: 64px;
+  }
+
+  .pg-close-media {
+    right: -44px;
+  }
+}
+
+/* ---------- mobile ---------- */
+@media (max-width: 768px) {
+  /* same as the Work page on mobile: a black title bar across the top */
+  .pg-tab,
+  .pg-tab-right a {
+    font-size: 1rem;
+  }
+
+  .pg-tab-left {
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 12px 16px;
+    background: #000;
+  }
+
+  .pg-tab-right {
+    top: 0;
+    right: 0;
+    padding: 12px 16px;
+  }
+
+  .pg-label {
+    font-size: 0.85rem;
+  }
+
+  /* stack: media on top, panel below */
+  .pg-overlay {
+    flex-direction: column;
+  }
+
+  .pg-lightbox {
+    order: 1;
+    padding: 56px 16px 16px;
+  }
+
+  .pg-lightbox .pg-media,
+  .pg-overlay.has-info .pg-lightbox .pg-media {
+    max-width: 100%;
+    max-height: 60vh;
+  }
+
+  .pg-panel {
+    order: 2;
+    flex: 0 0 auto;
+    height: auto;
+    max-height: 40vh;
+    overflow-y: auto;
+    padding: 16px 56px 20px 16px;
+    border-right: 0;
+    border-top: 1px solid var(--pg-divider);
+    font-size: 0.95rem;
+  }
+
+    .pg-panel-desc {
+    max-width: 100%;
+  }
+
+  .pg-close-panel {
+    top: 12px;
+    right: 16px;
+    bottom: auto;
+    font-size: 1.6rem;
+  }
+
+  .pg-close-media {
+    right: 0;
+    bottom: auto;
+    top: -40px;
+    font-size: 1.6rem;
+  }
+
+  .pg-zone {
+    cursor: pointer;
+  }
+
+  .pg-carousel-cursor {
+    display: none;
+  }
+
+  .pg-carousel-footer {
+    font-size: 0.9rem;
+  }
+
+  .pg-overlay.is-carousel .pg-lightbox .pg-media {
+    max-height: calc(60vh - 32px);
+  }
+}
+@media (max-width: 480px) {
+  .pg-tab,
+  .pg-tab-right a {
+    font-size: 0.9rem;
+  }
+
+  .pg-tab-left,
+  .pg-tab-right {
+    padding: 10px 12px;
+  }
+}

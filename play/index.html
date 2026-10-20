@@ -5,182 +5,84 @@
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-5B7TTVXPLB"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
-
-    function gtag() {
-      window.dataLayer.push(arguments);
-    }
-
+    function gtag() { window.dataLayer.push(arguments); }
     gtag("js", new Date());
     gtag("config", "G-5B7TTVXPLB");
   </script>
 
   <meta charset="UTF-8" />
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <title>Play — Katelyn Lee Design</title>
 
   <link rel="stylesheet" href="../project.css" />
+  <link rel="stylesheet" href="../play.css" />
 
-<link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
-<link rel="manifest" href="/assets/site.webmanifest">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+  <link rel="manifest" href="/assets/site.webmanifest">
 </head>
 
-<body class="play-page">
-  <div class="play-wrapper">
+<body class="pg-body">
 
-    <!-- LEFT SIDEBAR -->
-    <aside class="play-sidebar">
-      <div class="play-sidebar-top">
-        <a href="../" class="site-title">
-          KATELYN LEE
-        </a>
+  <!-- HEADER TABS (sit above the grid and the overlay) -->
+  <header class="pg-header">
+    <a href="../" class="pg-tab pg-tab-left">KATELYN LEE</a>
 
-        <!-- CURRENT PROJECT INFORMATION -->
-        <div class="play-project-info">
-          <div class="play-project-heading">
-            <h1 class="play-project-title" id="play-project-title">
-              Activity Log
-            </h1>
+    <nav class="pg-tab pg-tab-right top-nav">
+      <a href="../">Work</a>
+      <a href="../play" class="active">Play</a>
+      <a href="../about">About</a>
+      <a href="https://drive.google.com/file/d/1Zr8xY9YnoCe8laATRlkN5XmCc6YgwB7T/view?usp=drive_link" target="_blank" rel="noopener noreferrer">Resume</a>
+    </nav>
+  </header>
 
-            <span class="play-project-year" id="play-project-year">
-              2026
-            </span>
-          </div>
+  <!-- INFINITE GRID -->
+  <main class="pg-viewport" id="pg-viewport" aria-label="Play archive. Scroll or drag to explore.">
+    <div class="pg-stage" id="pg-stage">
+      <!-- Tiles are inserted by play.js -->
+    </div>
+  </main>
 
-          <div
-            class="play-project-description"
-            id="play-project-description"
-          >
-            Various data visualization posters rendered via p5.js for Katelyn Lee is Online.
-          </div>
-        </div>
+  <!-- CLICK OVERLAY -->
+  <div class="pg-overlay" id="pg-overlay" hidden>
+    <!-- Info panel: only shown when the asset has a description (Frame 5) -->
+    <aside class="pg-panel" id="pg-panel">
+      <div class="pg-panel-heading">
+        <span class="pg-panel-year" id="pg-panel-year"></span>
+        <h1 class="pg-panel-title" id="pg-panel-title"></h1>
       </div>
 
-      <!-- PROJECT SELECTOR -->
-      <div
-        class="play-project-list"
-        aria-label="Play projects"
-      >
-        <button
-          class="play-project-button active"
-          type="button"
-          data-project="KLIO"
-        >
-          <span>Activity Log</span>
-          <span>2026</span>
-        </button>
+      <div class="pg-panel-desc" id="pg-panel-desc"></div>
 
-        <button
-          class="play-project-button"
-          type="button"
-          data-project="riso"
-        >
-          <span>Riso Animation + Flipbooks</span>
-          <span>2025</span>
-        </button>
-
-        <button
-          class="play-project-button"
-          type="button"
-          data-project="wienerschnitzel"
-        >
-          <span>Wiener Dog Hall of Fame</span>
-          <span>2023</span>
-        </button>
-
-        <button
-          class="play-project-button"
-          type="button"
-          data-project="hyundai"
-        >
-          <span>Hyundai E-bike</span>
-          <span>2023</span>
-        </button>
-
-        <button
-          class="play-project-button"
-          type="button"
-          data-project="blender"
-        >
-          <span>Blender Animations</span>
-          <span>2024</span>
-        </button>
-
-        <button
-          class="play-project-button"
-          type="button"
-          data-project="touchdesigner"
-        >
-          <span>TouchDesigner Experiment</span>
-          <span>2025</span>
-        </button>
-      </div>
+      <button class="pg-close pg-close-panel" type="button" aria-label="Close">X</button>
     </aside>
 
-    <!-- RIGHT CONTENT -->
-    <main class="play-content">
-      <nav class="top-nav">
-        <a href="../">Work</a>
-        <a href="../play" class="active">Play</a>
-        <a href="../about">About</a>
-        <a href="https://drive.google.com/file/d/1Zr8xY9YnoCe8laATRlkN5XmCc6YgwB7T/view?usp=drive_link" target="_blank">Resume</a>
-      </nav>
+    <!-- Centered media (Frame 5 and Frame 6) -->
+    <div class="pg-lightbox" id="pg-lightbox">
+      <div class="pg-lightbox-frame" id="pg-lightbox-frame">
+        <!-- Media is inserted by play.js -->
+        <button class="pg-close pg-close-media" type="button" aria-label="Close">X</button>
 
-      <section
-        class="play-carousel"
-        id="play-carousel"
-        aria-label="Project carousel"
-      >
-        <div class="play-carousel-media" id="play-carousel-media">
-          <!-- Media is inserted by play.js -->
-        </div>
-
-        <button
-          class="play-carousel-zone play-carousel-zone-left"
-          id="play-carousel-previous"
-          type="button"
-          aria-label="Previous image"
-        ></button>
-
-        <button
-          class="play-carousel-zone play-carousel-zone-right"
-          id="play-carousel-next"
-          type="button"
-          aria-label="Next image"
-        ></button>
-      </section>
-
-      <div class="play-carousel-footer">
-        <span id="play-carousel-count">1 / 2</span>
-
-        <div class="play-carousel-controls">
-          <button
-            id="play-previous-button"
-            type="button"
-            aria-label="Previous image"
-          >
-            ←
-          </button>
-
-          <button
-            id="play-next-button"
-            type="button"
-            aria-label="Next image"
-          >
-            →
-          </button>
+        <!-- Carousel footer: only shown when the project has more than one asset -->
+        <div class="pg-carousel-footer">
+          <span id="pg-count">1 / 1</span>
+          <div class="pg-carousel-controls">
+            <button id="pg-prev" type="button" aria-label="Previous image">←</button>
+            <button id="pg-next" type="button" aria-label="Next image">→</button>
+          </div>
         </div>
       </div>
-    </main>
+
+      <!-- Invisible click halves for the carousel -->
+      <button class="pg-zone pg-zone-prev" id="pg-prev-zone" type="button" aria-label="Previous image"></button>
+      <button class="pg-zone pg-zone-next" id="pg-next-zone" type="button" aria-label="Next image"></button>
+    </div>
   </div>
 
+  <div class="pg-carousel-cursor" id="pg-carousel-cursor" aria-hidden="true">☞</div>
 
-   <div class="carousel-cursor" aria-hidden="true">☞</div>
   <script src="../play.js"></script>
 </body>
 </html>
