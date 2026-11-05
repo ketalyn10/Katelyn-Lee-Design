@@ -1,4 +1,15 @@
 const PROJECTS = {
+    House: {
+    title: "There's a House",
+    year: "2026",
+    description: `
+      A website where any page that mentions the word ‘house’ turns into one.
+      Upload a PDF, and each page that says ‘house’ builds one. Click to knock it down.
+      Created after finishing <em>House of Leaves</em>.
+      <br><br>
+      <a href="https://ketalyn10.github.io/house_made/"
+         target="_blank" rel="noopener noreferrer">Visit the site.</a>`
+  },
   KLIO: {
     title: "Activity Log",
     year: "2026",
@@ -40,6 +51,14 @@ const ASSETS = [
   { src: "../assets/play/mantra_finalcopy.mp4", group: "type" },
   { src: "../assets/play/0001-0060.mp4"},
   { src: "../assets/play/wishfulthinking.jpg"},
+
+  { src: "../assets/play/01.jpg", project: "House", alt: "House of Leaves website" },
+  { src: "../assets/play/02.jpg", project: "House", alt: "House of Leaves website" },
+  { src: "../assets/play/03.mp4", project: "House", alt: "House of Leaves website" },
+  { src: "../assets/play/04.mp4", project: "House", alt: "House of Leaves website" },
+  { src: "../assets/play/05.mp4", project: "House", alt: "House of Leaves website" },
+  { src: "../assets/play/06.mp4", project: "House", alt: "House of Leaves website" },
+  { src: "../assets/play/07.mp4", project: "House", alt: "House of Leaves website" },
 
   { src: "../assets/play/poster_final.jpg", project: "KLIO", alt: "Activity log poster" },
   { src: "../assets/play/example_2.png", project: "KLIO", alt: "Activity log poster" },
