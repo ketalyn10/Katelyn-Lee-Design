@@ -28,6 +28,7 @@ const PROJECTS = {
     description: `
       Entered in the <em>Social Good Campaign</em> category of the
       16th Annual Shorty Awards.
+      <br><br>
       <a href="https://shortyawards.com/16th/the-wiener-dog-hall-of-fame"
          target="_blank" rel="noopener noreferrer">Read about it here.</a>`
   },
